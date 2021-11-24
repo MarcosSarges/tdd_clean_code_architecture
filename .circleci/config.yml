@@ -11,11 +11,11 @@ jobs:
     steps:
       - checkout
       - run:
-          command: yarn
+          command: ls -a
           name: Run YARN install
-      - run:
-          command: npx jest
-          name: Run YARN tests
+      # - run:
+      #     command: yarn jest
+      #     name: Run YARN tests
 workflows:
   test_my_app:
     jobs:
