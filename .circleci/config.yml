@@ -1,0 +1,27 @@
+version: 2.1
+orbs:
+  node: circleci/node@4.7
+
+# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+jobs:
+  test:
+    executor:
+      name: node/default
+      tag: 16.13.0
+    environment:
+      CODECOV_TOKEN: $CODECOV_TOKEN
+    steps:
+      - checkout
+      - run:
+          command: yarn
+          name: Run YARN install
+      - run:
+          command: yarn jest
+          name: Run YARN tests
+      - run:
+          command: yarn jest --ci --coverage && yarn codecov --token=CODECOV_TOKEN
+          name: Run Coverage & Codecov
+workflows:
+  test_my_app:
+    jobs:
+      - test
