@@ -19,8 +19,8 @@ jobs:
           command: yarn jest
           name: Run YARN tests
       - run:
-          command: yarn jest --ci --coverage && codeco --token=CODECOV_TOKEN
-          name: Run YARN tests
+          command: yarn jest --ci --coverage && codecov --token=CODECOV_TOKEN
+          name: Run Coverage & Codecov
 workflows:
   test_my_app:
     jobs:
