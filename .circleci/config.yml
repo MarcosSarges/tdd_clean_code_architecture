@@ -10,9 +10,12 @@ jobs:
       tag: 16.13.0
     steps:
       - checkout
-      - node/install-packages:
+      - run:
+          command: yarn install
+          name: Run YARN install
+      # - node/install-packages:
           # cache-path: ~tmp/
-          override-ci-command: yarn
+          # override-ci-command: yarn
       - restore_cache:
           keys:
             # when lock file changes, use increasingly general patterns to restore cache
