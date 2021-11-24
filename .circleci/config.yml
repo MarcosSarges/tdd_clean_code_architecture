@@ -11,8 +11,8 @@ jobs:
     steps:
       - checkout
       - node/install-packages:
+          cache-path: /tmp/
           pkg-manager: yarn
-          # cache-path: ~/project/node_modules
           # override-ci-command: yarn install
       - run:
           command: yarn test
