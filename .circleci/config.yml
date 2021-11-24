@@ -11,21 +11,8 @@ jobs:
     steps:
       - checkout
       - run:
-          command: yarn install
+          command: yarn
           name: Run YARN install
-      # - node/install-packages:
-          # cache-path: ~tmp/
-          # override-ci-command: yarn
-      - save_cache:
-          paths:
-            - ~/usr/local/lib/node_modules  # location depends on npm version
-          key: node-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
-      - restore_cache:
-          keys:
-            # when lock file changes, use increasingly general patterns to restore cache
-            - node-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
-            - node-v1-{{ .Branch }}-
-            - node-v1-
       - run:
           command: yarn test
           name: Run YARN tests
