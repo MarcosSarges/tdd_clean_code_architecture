@@ -11,6 +11,9 @@ jobs:
     steps:
       - checkout
       - run:
+          command: npm install -g yarn
+          name: Run YARN install
+      - run:
           command: yarn
           name: Run YARN install
       - run:
