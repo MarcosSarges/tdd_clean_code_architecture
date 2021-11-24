@@ -5,7 +5,9 @@ orbs:
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 jobs:
   test:
-    executor: node/default
+    executor:
+      name: node/default
+      tag: 16.13.0
     steps:
       - checkout
       - node/install-packages:
