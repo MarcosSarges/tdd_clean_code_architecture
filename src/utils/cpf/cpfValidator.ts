@@ -1,52 +1,52 @@
-export default function validate(str) {
-  if (str !== null) {
-    if (str !== undefined) {
-      if (str.length >= 11 || str.length <= 14) {
-        str = str
-          .replace('.', '')
-          .replace('.', '')
-          .replace('-', '')
-          .replace(' ', '');
+const COEFFICIENT = 11;
 
-        if (!str.split('').every((c) => c === str[0])) {
-          try {
-            let d1, d2;
-            let dg1, dg2, rest;
-            let digito;
-            let nDigResult;
-            d1 = d2 = 0;
-            dg1 = dg2 = rest = 0;
+const cleanCaracterSpecial = (string: string) => string.replace(/\D/g, '');
 
-            for (let nCount = 1; nCount < str.length - 1; nCount++) {
-              // if (isNaN(parseInt(str.substring(nCount -1, nCount)))) {
-              // 	return false;
-              // } else {
+const isAllNumberAreEqual = (string: string) => {
+  return cleanCaracterSpecial(string)
+    .split('')
+    .every((caracter: string) => caracter === string[0]);
+};
 
-              digito = parseInt(str.substring(nCount - 1, nCount));
-              d1 = d1 + (11 - nCount) * digito;
+const calculateMod = (accumulator: number) => accumulator % COEFFICIENT;
 
-              d2 = d2 + (12 - nCount) * digito;
-              // }
-            }
+const calculateRuleMinusTwo = (mod: number) => {
+  return mod < 2 ? 0 : COEFFICIENT - mod;
+};
 
-            rest = d1 % 11;
+const calculateAccumulator = (cpf: string) => {
+  return cpf
+    .split('')
+    .reverse()
+    .reduce(
+      (prev, current, index) => (prev += parseInt(current) * (index + 2)),
+      0
+    );
+};
 
-            dg1 = rest < 2 ? (dg1 = 0) : 11 - rest;
-            d2 += 2 * dg1;
-            rest = d2 % 11;
-            if (rest < 2) dg2 = 0;
-            else dg2 = 11 - rest;
+const isValidRawCpf = (rawCpf: string | null | undefined) => {
+  if (rawCpf === null) return false;
+  if (rawCpf === undefined) return false;
+  if (rawCpf.length < 11 || rawCpf.length > 14) return false;
+  if (isAllNumberAreEqual(rawCpf)) return false;
 
-            let nDigVerific = str.substring(str.length - 2, str.length);
-            nDigResult = '' + dg1 + '' + dg2;
-            return nDigVerific == nDigResult;
-          } catch (e) {
-            console.error('Erro !' + e);
+  return true;
+};
 
-            return false;
-          }
-        } else return false;
-      } else return false;
-    }
-  } else return false;
+function cpfValidator(rawCpf: string | null | undefined) {
+  if (!isValidRawCpf(rawCpf)) return false;
+
+  const cpf = cleanCaracterSpecial(rawCpf!);
+
+  const verifyingDigit1 = calculateRuleMinusTwo(
+    calculateMod(calculateAccumulator(cpf.substring(0, 9)))
+  );
+  const verifyingDigit2 = calculateRuleMinusTwo(
+    calculateMod(calculateAccumulator(cpf.substring(0, 10)))
+  );
+
+  const twoLastDigit = cpf.substring(cpf.length - 2, cpf.length);
+  return twoLastDigit === `${verifyingDigit1}${verifyingDigit2}`;
 }
+
+export default cpfValidator;
