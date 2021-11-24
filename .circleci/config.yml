@@ -3,9 +3,19 @@ orbs:
   node: circleci/node@4.7
 
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
-workflows:
-  sample:
-    jobs:
-      - node/test:
-          version: '16.10'
+jobs:
+  test:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages:
+          cache-path: ~/project/node_modules
           pkg-manager: yarn
+          override-ci-command: yarn install
+      - run:
+          command: yarn test
+          name: Run YARN tests
+workflows:
+  test_my_app:
+    jobs:
+      - test
