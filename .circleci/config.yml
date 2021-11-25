@@ -8,8 +8,6 @@ jobs:
     executor:
       name: node/default
       tag: 16.13.0
-    environment:
-      CODECOV_TOKEN: $CODECOV_TOKEN
     steps:
       - checkout
       - run:
@@ -19,7 +17,7 @@ jobs:
           command: yarn jest
           name: Run YARN tests
       - run:
-          command: yarn jest --ci --coverage && yarn codecov --token=CODECOV_TOKEN
+          command: yarn jest --ci --coverage && yarn codecov --token=$CODECOV_TOKEN
           name: Run Coverage & Codecov
 workflows:
   test_my_app:
