@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User Deve retornar os dados do usuario 1`] = `
+Object {
+  "cpf": "553.566.310-73",
+}
+`;

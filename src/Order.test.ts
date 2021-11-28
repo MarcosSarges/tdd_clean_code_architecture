@@ -1,15 +1,13 @@
 // 1 - Não deve fazer um pedido com cpf inválido
 // 2 - Deve fazer um pedido com 3 itens (com descrição, preço e quantidade)
-
-import Order from './Order';
-
-const ITEM = {
-  description: 'Shot Azul',
-  price: 1000,
-  quantity: 1,
-};
-
 // 3 - Deve fazer um pedido com cupom de desconto (percentual sobre o total do pedido)
+
+import Cart from './Cart';
+import Cupom from './Cupom';
+import Order from './Order';
+import Product from './Product';
+import User from './User';
+
 describe('Order', () => {
   let order: Order;
 
@@ -19,41 +17,47 @@ describe('Order', () => {
 
   it('Não deve fazer um pedido com cpf inválido', () => {
     const cpf = '553.566.310-55';
-    order.setupUser(cpf);
 
     expect(() => {
-      order.checkout();
+      const user = new User(cpf);
+      const cart = new Cart();
+      order.checkout(cart, user);
     }).toThrowError('CPF INVALID');
   });
   it('Deve fazer um pedido com cpf válido', () => {
-    const cpf = '553.566.310-73';
-    order.setupUser(cpf);
-    order.addItemInCart(ITEM);
+    const user = new User('553.566.310-73');
+    const cart = new Cart();
+    const product = new Product('Short azul', 1000);
 
-    expect(order.checkout()).toMatchSnapshot();
+    cart.addProduct(product, 1);
+    expect(order.checkout(cart, user)).toMatchSnapshot();
   });
 
   it('Deve fazer um pedido com 3 itens (com descrição, preço e quantidade) ', () => {
-    order.setupUser('553.566.310-73');
+    const user = new User('553.566.310-73');
+    const cart = new Cart();
+    const product1 = new Product('Short azul', 1000);
+    const product2 = new Product('Short rosa', 1000);
+    const product3 = new Product('Short vermelho', 1000);
 
-    order.addItemInCart(ITEM);
-    order.addItemInCart(ITEM);
-    order.addItemInCart(ITEM);
+    cart.addProduct(product1, 2);
+    cart.addProduct(product2, 2);
+    cart.addProduct(product3, 2);
 
-    expect(order.checkout()).toMatchSnapshot();
+    expect(order.checkout(cart, user).status === 'DONE').toMatchSnapshot();
   });
   it('Deve fazer um pedido com cupom de desconto (percentual sobre o total do pedido)', () => {
-    order.setupUser('553.566.310-73');
-    order.addItemInCart(ITEM);
-    order.addCupom('OFF50');
+    const user = new User('553.566.310-73');
+    const cart = new Cart();
+    const cupom = new Cupom('OFF50');
+    const product1 = new Product('Short azul', 1000);
+    const product2 = new Product('Short rosa', 1000);
+    const product3 = new Product('Short vermelho', 1000);
 
-    expect(order.checkout().priceTotal).toEqual(500);
-  });
-  it('Não deve aplicar desconto caso o cupom seja invalido', () => {
-    order.setupUser('553.566.310-73');
-    order.addItemInCart(ITEM);
-    order.addCupom('OFF10');
+    cart.addProduct(product1, 2);
+    cart.addProduct(product2, 2);
+    cart.addProduct(product3, 2);
 
-    expect(order.checkout().priceTotal).toEqual(1000);
+    expect(order.checkout(cart, user, cupom).paymentTotal).toEqual(3000);
   });
 });

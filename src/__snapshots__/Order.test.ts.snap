@@ -1,39 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Order Deve fazer um pedido com 3 itens (com descrição, preço e quantidade)  1`] = `
-Object {
-  "ordered": true,
-  "priceTotal": 3000,
-  "products": Array [
-    Object {
-      "description": "Shot Azul",
-      "price": 1000,
-      "quantity": 1,
-    },
-    Object {
-      "description": "Shot Azul",
-      "price": 1000,
-      "quantity": 1,
-    },
-    Object {
-      "description": "Shot Azul",
-      "price": 1000,
-      "quantity": 1,
-    },
-  ],
-}
-`;
+exports[`Order Deve fazer um pedido com 3 itens (com descrição, preço e quantidade)  1`] = `true`;
 
 exports[`Order Deve fazer um pedido com cpf válido 1`] = `
 Object {
-  "ordered": true,
-  "priceTotal": 1000,
-  "products": Array [
+  "items": Array [
     Object {
-      "description": "Shot Azul",
-      "price": 1000,
+      "product": Product {
+        "description": "Short azul",
+        "price": 1000,
+      },
       "quantity": 1,
     },
   ],
+  "paymentTotal": 1000,
+  "status": "DONE",
+  "user": Object {
+    "cpf": "553.566.310-73",
+  },
 }
 `;

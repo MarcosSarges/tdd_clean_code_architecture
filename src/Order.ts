@@ -1,35 +1,18 @@
-import cpfValidator from './utils/cpf/cpfValidator';
+import Cart from './Cart';
+import Cupom from './Cupom';
+import User from './User';
 
 export default class Order {
-  private cpf: string | null = null;
-  private products: any[] = [];
-  private discount: number = 1;
-
-  setupUser(cpf: string) {
-    this.cpf = cpf;
-  }
-
-  addItemInCart(product: any) {
-    this.products.push(product);
-  }
-
-  addCupom(cupom: string) {
-    if (cupom === 'OFF50') {
-      this.discount = 0.5;
-    }
-  }
-
-  checkout() {
-    if (!cpfValidator(this.cpf)) throw new Error('CPF INVALID');
+  checkout(cart: Cart, user: User, cupom?: Cupom) {
+    const paymentTotal = cupom
+      ? cupom?.applyDiscount(cart)
+      : cart.getCartDetails.totalPrice;
 
     return {
-      products: this.products,
-      priceTotal:
-        this.products.reduce(
-          (prev, current) => (prev += current.price * current.quantity),
-          0
-        ) * this.discount,
-      ordered: true,
+      user: user.userInfos,
+      status: 'DONE',
+      items: cart.getCartDetails.items,
+      paymentTotal,
     };
   }
 }
