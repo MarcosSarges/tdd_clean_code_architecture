@@ -2,11 +2,11 @@
 // 2 - Deve fazer um pedido com 3 itens (com descrição, preço e quantidade)
 // 3 - Deve fazer um pedido com cupom de desconto (percentual sobre o total do pedido)
 
-import Cart from './Cart';
-import Cupom from './Cupom';
-import Order from './Order';
-import Product from './Product';
-import User from './User';
+import Cart from '../Cart';
+import Cupom from '../Cupom';
+import Order from '../Order';
+import Product from '../Product';
+import User from '../User';
 
 describe('Order', () => {
   let order: Order;

@@ -1,4 +1,4 @@
-import User from './User';
+import User from '../User';
 
 const CPF_VALIDO = '553.566.310-73';
 describe('User', () => {
