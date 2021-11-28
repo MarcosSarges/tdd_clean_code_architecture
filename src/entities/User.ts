@@ -1,4 +1,4 @@
-import cpfValidator from './utils/cpf/cpfValidator';
+import cpfValidator from './../utils/cpf/cpfValidator';
 
 export default class User {
   private cpf: string;

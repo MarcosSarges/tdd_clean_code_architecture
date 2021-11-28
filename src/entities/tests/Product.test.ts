@@ -1,4 +1,4 @@
-import Product from './Product';
+import Product from '../Product';
 
 describe('Produtos', () => {
   it('Deve criar uma instancia de produto', () => {

@@ -1,6 +1,6 @@
-import Cart from './Cart';
-import Cupom from './Cupom';
-import Product from './Product';
+import Cart from '../Cart';
+import Cupom from '../Cupom';
+import Product from '../Product';
 
 describe('Cupom', () => {
   it('Deve retornar o valor de desconto dado um codigo valido', () => {
