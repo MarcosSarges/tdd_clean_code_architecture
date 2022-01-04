@@ -11,7 +11,7 @@ export default class Cart {
   private calculatorTotalCart() {
     return this.items.reduce(
       (prev, current) =>
-        (prev += current.product.details.price * current.quantity),
+        (prev += current.product.getDetails().price * current.quantity),
       0
     );
   }
@@ -20,7 +20,7 @@ export default class Cart {
     this.items.push({ product, quantity });
   }
 
-  get getCartDetails() {
+  getCartDetails() {
     return {
       items: this.items,
       totalPrice: this.calculatorTotalCart(),

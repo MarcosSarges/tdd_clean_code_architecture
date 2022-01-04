@@ -6,12 +6,12 @@ export default class Order {
   checkout(cart: Cart, user: User, cupom?: Cupom) {
     const paymentTotal = cupom
       ? cupom?.applyDiscount(cart)
-      : cart.getCartDetails.totalPrice;
+      : cart.getCartDetails().totalPrice;
 
     return {
-      user: user.userInfos,
+      user: user.getUserInfos(),
       status: 'DONE',
-      items: cart.getCartDetails.items,
+      items: cart.getCartDetails().items,
       paymentTotal,
     };
   }

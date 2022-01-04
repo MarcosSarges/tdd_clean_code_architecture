@@ -7,7 +7,7 @@ export default class Product {
     this.price = price;
   }
 
-  get details() {
+  getDetails() {
     return {
       description: this.description,
       price: this.price,

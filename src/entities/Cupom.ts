@@ -9,11 +9,11 @@ export default class Cupom {
     }
   }
 
-  get discountPercentage() {
+  getDiscountPercentage() {
     return this.discount;
   }
 
   applyDiscount(cart: Cart) {
-    return cart.getCartDetails.totalPrice * (1 - this.discount);
+    return cart.getCartDetails().totalPrice * (1 - this.discount);
   }
 }

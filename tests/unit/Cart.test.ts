@@ -1,5 +1,5 @@
-import Cart from '../Cart';
-import Product from '../Product';
+import Cart from '../../src/entities/Cart';
+import Product from '../../src/entities/Product';
 
 describe('Carrinho', () => {
   let cart: Cart;
@@ -13,7 +13,7 @@ describe('Carrinho', () => {
 
     cart.addProduct(product1, 1);
 
-    expect(cart.getCartDetails.items.length).toEqual(1);
+    expect(cart.getCartDetails().items.length).toEqual(1);
   });
 
   it('Deve mostrar os dados do carrinho', () => {
@@ -21,7 +21,7 @@ describe('Carrinho', () => {
 
     cart.addProduct(product1, 1);
 
-    expect(cart.getCartDetails).toEqual({
+    expect(cart.getCartDetails()).toEqual({
       items: [
         {
           product: {

@@ -1,6 +1,7 @@
-import User from '../User';
+import User from '../../src/entities/User';
 
 const CPF_VALIDO = '553.566.310-73';
+
 describe('User', () => {
   it('Deve criar uma instancia de user dado um cpf valido', () => {
     const user = new User(CPF_VALIDO);
@@ -8,7 +9,7 @@ describe('User', () => {
   });
   it('Deve retornar os dados do usuario', () => {
     const user = new User(CPF_VALIDO);
-    expect(user.userInfos).toMatchSnapshot();
+    expect(user.getUserInfos()).toMatchSnapshot();
   });
   it('Deve lançar um erro dado um cpf invalido', () => {
     expect(() => {
