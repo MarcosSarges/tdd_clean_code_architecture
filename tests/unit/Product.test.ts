@@ -1,4 +1,4 @@
-import Product from '../Product';
+import Product from '../../src/entities/Product';
 
 describe('Produtos', () => {
   it('Deve criar uma instancia de produto', () => {
@@ -9,7 +9,7 @@ describe('Produtos', () => {
   it('Deve retornar os dados do produto criado', () => {
     const product = new Product('Short azul', 1000);
 
-    expect(product.details).toEqual({
+    expect(product.getDetails()).toEqual({
       description: 'Short azul',
       price: 1000,
     });
