@@ -5,7 +5,7 @@ exports[`Order Deve fazer um pedido com 3 itens (com descrição, preço e quant
 exports[`Order Deve fazer um pedido com cpf válido 1`] = `
 Object {
   "items": Array [
-    Object {
+    Item {
       "product": Product {
         "description": "Short azul",
         "price": 1000,
