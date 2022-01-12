@@ -1,9 +1,5 @@
+import Item from './Item';
 import Product from './Product';
-
-interface Item {
-  product: Product;
-  quantity: number;
-}
 
 export default class Cart {
   private items: Item[] = [];
