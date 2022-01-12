@@ -65,15 +65,6 @@ describe('Order', () => {
     expect(order.checkout(cart, user, cupom).paymentTotal).toEqual(3000);
   });
 
-  it('Não deve aplicar cupom de desconto expirado', () => {
-    const user = new User('553.566.310-73');
-    const cart = new Cart();
-    // const cupom = new Cupom('OFF50');
-    const product = new Product('Short azul', 1000);
-    const item = new Item(product, 1);
-    cart.addItemInCart(item);
-    expect(order.checkout(cart, user).paymentTotal).toEqual(1000);
-  });
   it.todo(
     'Deve calcular o valor do frete com base nas dimensões (altura, largura e profundidade em cm) e o peso dos produtos (em kg)'
   );

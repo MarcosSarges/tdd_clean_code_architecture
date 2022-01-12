@@ -8,17 +8,30 @@ describe('Cupom', () => {
     const cupom = new Cupom('OFF50');
     expect(cupom.getDiscountPercentage()).toBe(0.5);
   });
+
   it('Deve retornar o valor 0 dado um codigo invalido', () => {
     const cupom = new Cupom('OFF10');
     expect(cupom.getDiscountPercentage()).toBe(0);
   });
-  it('Deve retornar o valor do carrinho com desconto de 0.5', () => {
-    const cupom = new Cupom('OFF50');
-    const cart = new Cart();
-    const product = new Product('Short azul', 1000);
-    const item = new Item(product, 1);
-    cart.addItemInCart(item);
 
-    expect(cupom.applyDiscount(cart)).toBe(500);
+  describe('Cupom com carrinho', () => {
+    let cart: Cart;
+
+    beforeEach(() => {
+      cart = new Cart();
+      const product = new Product('Short azul', 1000);
+      const item = new Item(product, 1);
+      cart.addItemInCart(item);
+    });
+
+    it('Deve retornar o valor do carrinho com desconto de 0.5', () => {
+      const cupom = new Cupom('OFF50');
+      expect(cupom.applyDiscount(cart)).toBe(500);
+    });
+
+    it('Não deve aplicar cupom de desconto expirado', () => {
+      const cupom = new Cupom('OFF50', new Date('2021-12-30'));
+      expect(cupom.applyDiscount(cart)).toBe(1000);
+    });
   });
 });
