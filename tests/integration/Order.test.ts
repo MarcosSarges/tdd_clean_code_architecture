@@ -1,9 +1,6 @@
-// 1 - Não deve fazer um pedido com cpf inválido
-// 2 - Deve fazer um pedido com 3 itens (com descrição, preço e quantidade)
-// 3 - Deve fazer um pedido com cupom de desconto (percentual sobre o total do pedido)
-
 import Cart from '../../src/entities/Cart';
 import Cupom from '../../src/entities/Cupom';
+import Item from '../../src/entities/Item';
 import Order from '../../src/entities/Order';
 import Product from '../../src/entities/Product';
 import User from '../../src/entities/User';
@@ -27,22 +24,26 @@ describe('Order', () => {
   it('Deve fazer um pedido com cpf válido', () => {
     const user = new User('553.566.310-73');
     const cart = new Cart();
-    const product = new Product('Short azul', 1000);
+    const product = new Product('Short azul', 1000, 1, 2, 3, 4);
+    const item1 = new Item(product, 1);
 
-    cart.addProduct(product, 1);
+    cart.addItemInCart(item1);
     expect(order.checkout(cart, user)).toMatchSnapshot();
   });
 
   it('Deve fazer um pedido com 3 itens (com descrição, preço e quantidade) ', () => {
     const user = new User('553.566.310-73');
     const cart = new Cart();
-    const product1 = new Product('Short azul', 1000);
-    const product2 = new Product('Short rosa', 1000);
-    const product3 = new Product('Short vermelho', 1000);
+    const product1 = new Product('Short azul', 1000, 1, 2, 3, 4);
+    const product2 = new Product('Short rosa', 1000, 1, 2, 3, 4);
+    const product3 = new Product('Short vermelho', 1000, 1, 2, 3, 4);
 
-    cart.addProduct(product1, 2);
-    cart.addProduct(product2, 2);
-    cart.addProduct(product3, 2);
+    const item1 = new Item(product1, 2);
+    const item2 = new Item(product2, 2);
+    const item3 = new Item(product3, 2);
+    cart.addItemInCart(item1);
+    cart.addItemInCart(item2);
+    cart.addItemInCart(item3);
 
     expect(order.checkout(cart, user).status === 'DONE').toMatchSnapshot();
   });
@@ -50,13 +51,16 @@ describe('Order', () => {
     const user = new User('553.566.310-73');
     const cart = new Cart();
     const cupom = new Cupom('OFF50');
-    const product1 = new Product('Short azul', 1000);
-    const product2 = new Product('Short rosa', 1000);
-    const product3 = new Product('Short vermelho', 1000);
+    const product1 = new Product('Short azul', 1000, 1, 2, 3, 4);
+    const product2 = new Product('Short rosa', 1000, 1, 2, 3, 4);
+    const product3 = new Product('Short vermelho', 1000, 1, 2, 3, 4);
 
-    cart.addProduct(product1, 2);
-    cart.addProduct(product2, 2);
-    cart.addProduct(product3, 2);
+    const item1 = new Item(product1, 2);
+    const item2 = new Item(product2, 2);
+    const item3 = new Item(product3, 2);
+    cart.addItemInCart(item1);
+    cart.addItemInCart(item2);
+    cart.addItemInCart(item3);
 
     expect(order.checkout(cart, user, cupom).paymentTotal).toEqual(3000);
   });

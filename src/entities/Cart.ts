@@ -1,10 +1,4 @@
-import Product from './Product';
-
-interface Item {
-  product: Product;
-  quantity: number;
-}
-
+import Item from './Item';
 export default class Cart {
   private items: Item[] = [];
 
@@ -16,8 +10,8 @@ export default class Cart {
     );
   }
 
-  addProduct(product: Product, quantity: number) {
-    this.items.push({ product, quantity });
+  addItemInCart(item: Item) {
+    this.items.push(item);
   }
 
   getCartDetails() {
