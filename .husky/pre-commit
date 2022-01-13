@@ -3,5 +3,6 @@
 
 # npm test
 yarn test:badges
+git add ./badges/
 
 
