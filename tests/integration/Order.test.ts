@@ -24,7 +24,7 @@ describe('Order', () => {
   it('Deve fazer um pedido com cpf válido', () => {
     const user = new User('553.566.310-73');
     const cart = new Cart();
-    const product = new Product('Short azul', 1000);
+    const product = new Product('Short azul', 1000, 1, 2, 3, 4);
     const item1 = new Item(product, 1);
 
     cart.addItemInCart(item1);
@@ -34,9 +34,9 @@ describe('Order', () => {
   it('Deve fazer um pedido com 3 itens (com descrição, preço e quantidade) ', () => {
     const user = new User('553.566.310-73');
     const cart = new Cart();
-    const product1 = new Product('Short azul', 1000);
-    const product2 = new Product('Short rosa', 1000);
-    const product3 = new Product('Short vermelho', 1000);
+    const product1 = new Product('Short azul', 1000, 1, 2, 3, 4);
+    const product2 = new Product('Short rosa', 1000, 1, 2, 3, 4);
+    const product3 = new Product('Short vermelho', 1000, 1, 2, 3, 4);
 
     const item1 = new Item(product1, 2);
     const item2 = new Item(product2, 2);
@@ -51,9 +51,9 @@ describe('Order', () => {
     const user = new User('553.566.310-73');
     const cart = new Cart();
     const cupom = new Cupom('OFF50');
-    const product1 = new Product('Short azul', 1000);
-    const product2 = new Product('Short rosa', 1000);
-    const product3 = new Product('Short vermelho', 1000);
+    const product1 = new Product('Short azul', 1000, 1, 2, 3, 4);
+    const product2 = new Product('Short rosa', 1000, 1, 2, 3, 4);
+    const product3 = new Product('Short vermelho', 1000, 1, 2, 3, 4);
 
     const item1 = new Item(product1, 2);
     const item2 = new Item(product2, 2);
@@ -64,11 +64,4 @@ describe('Order', () => {
 
     expect(order.checkout(cart, user, cupom).paymentTotal).toEqual(3000);
   });
-
-  it.todo(
-    'Deve calcular o valor do frete com base nas dimensões (altura, largura e profundidade em cm) e o peso dos produtos (em kg)'
-  );
-  it.todo(
-    'Deve retornar o preço mínimo de frete caso ele seja superior ao valor calculado'
-  );
 });

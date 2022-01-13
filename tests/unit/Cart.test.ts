@@ -29,6 +29,10 @@ describe('Carrinho', () => {
           product: {
             description: 'Short azul',
             price: 1000,
+            weight: 0,
+            length: 0,
+            width: 0,
+            height: 0,
           },
           quantity: 1,
         },

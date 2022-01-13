@@ -8,7 +8,11 @@ Object {
     Item {
       "product": Product {
         "description": "Short azul",
+        "height": 1,
+        "length": 3,
         "price": 1000,
+        "weight": 4,
+        "width": 2,
       },
       "quantity": 1,
     },
